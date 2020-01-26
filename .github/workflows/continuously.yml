@@ -24,6 +24,9 @@ jobs:
       run: |
         echo ">>>>> 1/7 Fetch 'update-site' branch if available"
         if [ "`git ls-remote --heads origin update-site`" ]; then git fetch origin update-site; fi
+        echo "git branch -a:"
+        git branch -a
+        echo ---
         echo ">>>>> 2/7 Clone locally"
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
