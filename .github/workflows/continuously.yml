@@ -22,6 +22,11 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
+        echo aaa
+        git branch -r --list update-site
+        echo bbb
+        git branch --list update-site
+        echo ccc
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         echo ">>>>> 1/6 Clone locally"
