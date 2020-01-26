@@ -30,9 +30,9 @@ jobs:
         ls -la
         echo Create branch...
         #git checkout --orphan update-site
-        git checkout -b update-site
-        if [ `git branch -r --contains update-site` ]; then echo With update-site branch; else echo Without update-site branch; fi
-        # if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
+        #git checkout -b update-site
+        #if [ `git branch -r --contains update-site` ]; then echo With update-site branch; else echo Without update-site branch; fi
+        if [ `git branch -r --contains update-site` ]; then git checkout -b update-site; else git checkout --orphan update-site; fi
         ls -la
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
