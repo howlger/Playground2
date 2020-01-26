@@ -22,23 +22,8 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
-        git ls-remote
-        echo ---a
-        git ls-remote --heads origin update-site
-        echo ---b
-        git ls-remote --heads origin foo-bar
-        echo ---c
-        if [ "`git ls-remote --heads origin update-site`" ]; then echo Gooooo for update-site; fi
-        if [ "`git ls-remote --heads origin foo-bar`" ]; then echo Gooooo for foo-bar; fi
-        echo ">>>>> 1/7 Fetch all, including 'update-site' branch"
-        git branch -r --list origin/update-site
-        echo ---
-        git fetch --all --depth=1
-        echo ---
-        echo "git branch -a:"
-        git branch -a
-        echo ---
-        git branch -r --list origin/update-site
+        echo ">>>>> 1/7 Fetch 'update-site' branch if available"
+        if [ "`git ls-remote --heads origin update-site`" ]; then git fetch origin update-site; fi
         echo ">>>>> 2/7 Clone locally"
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
