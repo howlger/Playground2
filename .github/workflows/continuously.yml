@@ -23,12 +23,10 @@ jobs:
       if: success()
       run: |
         echo aaa
-        git branch -r --list update-site
+        git branch -r --list update*
         echo bbb
-        git branch --list update-site
+        git branch --list update*
         echo ccc
-        git branch -r --contains update-site
-        echo ddd
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         echo ">>>>> 1/6 Clone locally"
@@ -37,12 +35,10 @@ jobs:
         #git checkout --orphan update-site
         #git checkout -b update-site
         echo aaa
-        git branch -r --list update-site
+        git branch -r --list update*
         echo bbb
-        git branch --list update-site
+        git branch --list update*
         echo ccc
-        git branch -r --contains update-site
-        echo ddd
         if [ "`git branch -r --list update-site`" ]
         then
           echo ">>>>> 2/6 Checkout remote 'update-site' branch"
