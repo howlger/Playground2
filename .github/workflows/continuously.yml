@@ -1,0 +1,40 @@
+name: Continuously build
+
+on:
+  push:
+    branches:    
+      - master
+
+jobs:
+  build:
+
+    # POM-less Tycho fails with Maven 3.6.1 and 3.6.2:
+    # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/software-installed-on-github-hosted-runners
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Create stuff...
+      run: mkdir out && echo test v1 > out/test.txt
+    - name: Publish update site
+      env:
+        UPDATE_SITE_PATH: out
+      if: success()
+      run: |
+        mkdir "${HOME}/target_repo"
+        cd "${HOME}/target_repo"
+        ls -la
+        git clone "${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
+        ls -la
+        if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site
+        ls -la
+        rm -rf staging
+        cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
+        ls -la
+        git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git config --local user.name  "${GITHUB_ACTOR}"
+        git add staging
+        git commit --amend -m "Update update site"
+        echo Pushing to the update site repository...
+        git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
+        echo Done. See https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
