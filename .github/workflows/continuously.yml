@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v18 > out/test.txt
+      run: mkdir out && echo test v19 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -29,6 +29,7 @@ jobs:
         echo ">>>>> 2/7 Fetch 'update-site' branch if available"
         git remote add github "https://github.com/${GITHUB_REPOSITORY}"
         if [ "`git ls-remote --heads github update-site`" ]; then git fetch github update-site; fi
+        ls -l
         if [ "`git branch -r --list github/update-site`" ]
         then
           echo ">>>>> 3/7 Checkout remote 'update-site' branch"
@@ -37,9 +38,11 @@ jobs:
           echo ">>>>> 3/7 Create new 'update-site' branch"
           git checkout --orphan update-site
         fi
+        ls -l
         echo ">>>>> 4/7 Get update site"
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
+        ls -l
         echo ">>>>> 5/7 Add"
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
