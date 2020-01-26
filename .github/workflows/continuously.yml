@@ -27,11 +27,15 @@ jobs:
         echo ---
         git fetch --all --depth=1
         echo ---
+        echo "git branch -a:"
+        git branch -a
+        echo ---
         git branch -r --list origin/update-site
         echo ">>>>> 2/7 Clone locally"
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
+        echo "git branch -a:"
         git branch -a
         echo ---
         git branch -r --list origin/update-site
