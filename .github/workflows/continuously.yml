@@ -26,7 +26,7 @@ jobs:
         echo ---a
         git ls-remote --heads origin update-site
         echo ---b
-        git ls-remote --heads origin refs/heads/foo-bar
+        git ls-remote --heads origin foo-bar
         echo ---c
         echo ">>>>> 1/7 Fetch all, including 'update-site' branch"
         git branch -r --list origin/update-site
