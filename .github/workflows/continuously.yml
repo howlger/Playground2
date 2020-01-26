@@ -23,7 +23,7 @@ jobs:
       if: success()
       run: |
         git branch --list
-        git zzz
+        echo zzz
         git branch --remotes --list
         echo aaa
         git branch -r --list update.*
