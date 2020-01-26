@@ -28,6 +28,8 @@ jobs:
         echo ---b
         git ls-remote --heads origin foo-bar
         echo ---c
+        if [ "`git ls-remote --heads origin update-site`" ]; then echo Gooooo for update-site; fi
+        if [ "`git ls-remote --heads origin foo-bar`" ]; then echo Gooooo for foo-bar; fi
         echo ">>>>> 1/7 Fetch all, including 'update-site' branch"
         git branch -r --list origin/update-site
         echo ---
