@@ -24,9 +24,9 @@ jobs:
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         ls -la
-        git clone "${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
+        git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
         ls -la
-        if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site
+        if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         ls -la
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
