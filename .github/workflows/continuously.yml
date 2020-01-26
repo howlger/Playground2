@@ -22,16 +22,18 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
-        echo ">>>>> 1/7 Fetch 'update-site' branch if available"
-        if [ "`git ls-remote --heads origin update-site`" ]; then git fetch origin update-site; fi
+        echo ">>>>> 1/7 Clone locally"
+        mkdir "${HOME}/target_repo"
+        cd "${HOME}/target_repo"
+        git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
+        #
+        echo ">>>>> 2/7 Fetch 'update-site' branch if available"
+        git remote add github "https://github.com/${GITHUB_REPOSITORY}"
+        if [ "`git ls-remote --heads github update-site`" ]; then git fetch github update-site; fi
         echo "git branch -a:"
         git branch -a
         echo ---
-        echo ">>>>> 2/7 Clone locally"
-        mkdir "${HOME}/target_repo"
-        cd "${HOME}/target_repo"
-        #git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
-        git clone "file://${GITHUB_WORKSPACE}" .
+        # git clone "file://${GITHUB_WORKSPACE}" .
         if [ "`git ls-remote --heads origin update-site`" ]; then echo with update-site; else echo without update-site; fi
         if [ "`git ls-remote --heads origin update-site`" ]; then git fetch origin update-site; fi
         echo "git branch -a:"
