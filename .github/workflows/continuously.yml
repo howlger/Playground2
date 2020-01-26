@@ -24,9 +24,9 @@ jobs:
       run: |
         git branch --list
         echo aaa
-        git branch -r --list update*
+        git branch -r --list update.*
         echo bbb
-        git branch --list update*
+        git branch --list update.*
         echo ccc
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
