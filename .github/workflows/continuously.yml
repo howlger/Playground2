@@ -34,8 +34,8 @@ jobs:
         git branch -a
         echo ---
         # git clone "file://${GITHUB_WORKSPACE}" .
-        if [ "`git ls-remote --heads origin update-site`" ]; then echo with update-site; else echo without update-site; fi
-        if [ "`git ls-remote --heads origin update-site`" ]; then git fetch origin update-site; fi
+        if [ "`git ls-remote --heads github update-site`" ]; then echo with update-site; else echo without update-site; fi
+        if [ "`git ls-remote --heads github update-site`" ]; then git fetch origin update-site; fi
         echo "git branch -a:"
         git branch -a
         echo ---
