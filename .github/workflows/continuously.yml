@@ -33,7 +33,7 @@ jobs:
         if [ "`git branch -r --list github/update-site`" ]
         then
           echo ">>>>> 3/7 Checkout remote 'update-site' branch"
-          git checkout -b github/update-site
+          git checkout -t github/update-site
         else
           echo ">>>>> 3/7 Create new 'update-site' branch"
           git checkout --orphan update-site
