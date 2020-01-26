@@ -30,7 +30,8 @@ jobs:
         echo ">>>>> 2/7 Clone locally"
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
-        git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
+        #git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
+        git clone --no-checkout "file://${GITHUB_WORKSPACE}" .
         echo "git branch -a:"
         git branch -a
         echo ---
