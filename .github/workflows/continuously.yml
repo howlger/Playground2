@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v5 > out/test.txt
+      run: mkdir out && echo test v6 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -63,5 +63,5 @@ jobs:
         #git push "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         echo Done.
-        echo See: https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
-        echo Update site: https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/update-site/staging
+        echo "See: https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging"
+        echo "Update site: https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/update-site/staging"
