@@ -29,7 +29,8 @@ jobs:
         git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
         ls -la
         echo Create branch...
-        git checkout --orphan update-site
+        #git checkout --orphan update-site
+        git checkout update-site
         if [ `git branch -r --contains update-site` ]; then echo With update-site branch; else echo Without update-site branch; fi
         # if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         ls -la
@@ -41,8 +42,9 @@ jobs:
         git add staging
         echo Committing...
         #if [ `git branch -r --contains update-site` ]; then git commit --amend -m "Update update site"; else git commit -m "Update update site"; fi
-        git commit -m "Update update site"
+        #git commit -m "Update update site"
+        git commit --amend -m "Update update site"
         echo Pushing... to "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-        #git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
-        git push "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
+        #git push "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
+        git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         echo Done. See https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
