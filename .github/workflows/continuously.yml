@@ -22,7 +22,7 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
-        git fetch update-site
+        git fetch origin update-site
         git branch --list
         echo zzz
         git branch --remotes --list
