@@ -32,6 +32,7 @@ jobs:
         cd "${HOME}/target_repo"
         #git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
         git clone --no-checkout "file://${GITHUB_WORKSPACE}" .
+        if [ "`git ls-remote --heads origin update-site`" ]; then echo with update-site; else echo without update-site; fi
         if [ "`git ls-remote --heads origin update-site`" ]; then git fetch origin update-site; fi
         echo "git branch -a:"
         git branch -a
