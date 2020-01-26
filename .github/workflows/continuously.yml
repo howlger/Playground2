@@ -34,16 +34,13 @@ jobs:
         echo --b
         git branch -r --list github/update-site
         echo --o
-        if [ "`git branch -r --list github/update-site`" ]; then echo with update-site; else echo without update-site; fi
         if [ "`git branch -r --list github/update-site`" ]
         then
           echo ">>>>> 3/7 Checkout remote 'update-site' branch"
-          git checkout -b update-site
-          echo End with update-site branch
+          git checkout -b github/update-site
         else
           echo ">>>>> 3/7 Create new 'update-site' branch"
           git checkout --orphan update-site
-          echo End without update-site branch
         fi
         echo ">>>>> 4/7 Get update site"
         rm -rf staging
