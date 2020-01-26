@@ -24,9 +24,12 @@ jobs:
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         ls -la
+        echo Cloning...
         git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
         ls -la
-        if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
+        echo Create branch...
+        git checkout --orphan update-site
+        # if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         ls -la
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
@@ -34,7 +37,8 @@ jobs:
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add staging
+        echo Committing...
         if [ `git branch -r --contains update-site` ]; then git commit --amend -m "Update update site"; else git commit -m "Update update site"; fi
-        echo Pushing to the update site repository...
+        echo Pushing...
         git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         echo Done. See https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
