@@ -48,11 +48,9 @@ jobs:
         then
           echo ">>>>> 6/7 Update last commit (using '--amend')"
           git commit --amend -m "Update update site"
-          echo End with update-site branch
         else
           echo ">>>>> 6/7 Create initial commit"
           git commit -m "Update update site"
-          echo End without update-site branch
         fi
         echo ">>>>> 7/7 Push to https://github.com/${GITHUB_REPOSITORY}.git"
         git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
