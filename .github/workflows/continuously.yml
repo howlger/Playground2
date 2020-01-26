@@ -32,6 +32,7 @@ jobs:
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
+        git branch -a
         echo ---
         git branch -r --list origin/update-site
         echo ---
