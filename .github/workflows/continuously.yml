@@ -23,6 +23,11 @@ jobs:
       if: success()
       run: |
         git ls-remote
+        echo ---a
+        git ls-remote refs/heads/update-site
+        echo ---b
+        git ls-remote refs/heads/foo-bar
+        echo ---c
         echo ">>>>> 1/7 Fetch all, including 'update-site' branch"
         git branch -r --list origin/update-site
         echo ---
