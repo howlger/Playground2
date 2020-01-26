@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v11 > out/test.txt
+      run: mkdir out && echo test v12 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -23,13 +23,6 @@ jobs:
       if: success()
       run: |
         git fetch --all --depth=1
-        echo zzz
-        git branch --remotes --list
-        echo aaa
-        git branch -r --list origin/update-site
-        echo bbb
-        git branch --list origin/update-site
-        echo ccc
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         echo ">>>>> 1/6 Clone locally"
@@ -42,7 +35,7 @@ jobs:
         echo bbb
         git branch --list update*
         echo ccc
-        if [ "`git branch -r --list update-site`" ]
+        if [ "`git branch -r --list origin/update-site`" ]
         then
           echo ">>>>> 2/6 Checkout remote 'update-site' branch"
           git checkout -b update-site
@@ -62,7 +55,7 @@ jobs:
         #if [ `git branch -r --contains update-site` ]; then git commit --amend -m "Update update site"; else git commit -m "Update update site"; fi
         #git commit -m "Update update site"
         #git commit --amend -m "Update update site"
-        if [ "`git branch -r --list update-site`" ]
+        if [ "`git branch -r --list origin/update-site`" ]
         then
           echo ">>>>> 5/6 Update last commit (using '--amend')"
           git commit --amend -m "Update update site"
