@@ -23,6 +23,7 @@ jobs:
       if: success()
       run: |
         git fetch origin update-site
+        git fetch origin foo-bar
         git branch --list
         echo zzz
         git branch --remotes --list
