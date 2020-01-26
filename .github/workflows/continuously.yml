@@ -24,25 +24,25 @@ jobs:
       run: |
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
-        echo 1. Clone...
+        echo ">>>>> 1/6 Clone locally"
         git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
         #if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         #git checkout --orphan update-site
         #git checkout -b update-site
         if [ `git branch -r --contains update-site` ]
         then
-          echo 2. Create new \'update-site\' branch
+          echo ">>>>> 2/6 Create new 'update-site' branch"
           git checkout --orphan update-site
           echo End without update-site branch
         else
-          echo 2. Checkout remote \'update-site\' branch
+          echo ">>>>> 2/6 Checkout remote 'update-site' branch"
           git checkout -b update-site
           echo End with update-site branch
         fi
-        echo 3. Get update site 
+        echo ">>>>> 3/6 Get update site"
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
-        echo 4. Add
+        echo ">>>>> 4/6 Add"
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add staging
@@ -51,15 +51,15 @@ jobs:
         #git commit --amend -m "Update update site"
         if [ `git branch -r --contains update-site` ]
         then
-          echo 5. Create initial commit
+          echo ">>>>> 5/6 Create initial commit"
           git commit -m "Update update site"
           echo End without update-site branch
         else
-          echo ">>>>> 5. Update last commit (using '--amend')"
+          echo ">>>>> 5/6 Update last commit (using '--amend')"
           git commit --amend -m "Update update site"
           echo End with update-site branch
         fi
-        echo 6. Push to "https://github.com/${GITHUB_REPOSITORY}.git"
+        echo ">>>>> 6/6 Push to https://github.com/${GITHUB_REPOSITORY}.git"
         #git push "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         echo Done.
