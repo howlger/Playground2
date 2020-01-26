@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v4 > out/test.txt
+      run: mkdir out && echo test v5 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -31,18 +31,18 @@ jobs:
         #git checkout -b update-site
         if [ `git branch -r --contains update-site` ]
         then
-          echo 2. Create new 'update-site' branch
+          echo 2. Create new \'update-site\' branch
           git checkout --orphan update-site
           echo End without update-site branch
         else
-          echo 2. Chechout remote \[update-site\] branch
+          echo 2. Checkout remote \'update-site\' branch
           git checkout -b update-site
           echo End with update-site branch
         fi
-        echo 3. Copy update site
+        echo 3. Get update site 
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
-        echo 4. Add changes
+        echo 4. Add
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add staging
@@ -55,7 +55,7 @@ jobs:
           git commit -m "Update update site"
           echo End without update-site branch
         else
-          echo 5. Create commit with '--amend'
+          echo 5. Update last commit (using \'--amend\')
           git commit --amend -m "Update update site"
           echo End with update-site branch
         fi
