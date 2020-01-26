@@ -29,17 +29,19 @@ jobs:
         git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
         ls -la
         echo Create branch...
+        # if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         #git checkout --orphan update-site
-        git checkout -b update-site
+        #git checkout -b update-site
         if [ `git branch -r --contains update-site` ]
         then
           echo Start without update-site branch
+          git checkout --orphan update-site
           echo End without update-site branch
         else
           echo Start with update-site branch
+          git checkout -b update-site
           echo End with update-site branch
         fi
-        # if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         ls -la
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
