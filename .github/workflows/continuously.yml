@@ -27,6 +27,8 @@ jobs:
         echo bbb
         git branch --list update-site
         echo ccc
+        git branch -r --contains update-site
+        echo ddd
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         echo ">>>>> 1/6 Clone locally"
@@ -39,6 +41,8 @@ jobs:
         echo bbb
         git branch --list update-site
         echo ccc
+        git branch -r --contains update-site
+        echo ddd
         if [ "`git branch -r --list update-site`" ]
         then
           echo ">>>>> 2/6 Checkout remote 'update-site' branch"
