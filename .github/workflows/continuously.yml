@@ -22,6 +22,7 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
+        git ls-remote
         echo ">>>>> 1/7 Fetch all, including 'update-site' branch"
         git branch -r --list origin/update-site
         echo ---
