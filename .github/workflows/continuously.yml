@@ -55,7 +55,7 @@ jobs:
           git commit -m "Update update site"
           echo End without update-site branch
         else
-          echo "\n5. Update last commit (using '--amend')"
+          echo ">>>>> 5. Update last commit (using '--amend')"
           git commit --amend -m "Update update site"
           echo End with update-site branch
         fi
