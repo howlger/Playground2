@@ -25,7 +25,7 @@ jobs:
         echo ">>>>> 1/7 Fetch all, including 'update-site' branch"
         git branch -r --list origin/update-site
         echo ---
-        git fetch --all --depth=1
+        git fetch --all --depth=1 origin
         git branch -r --list origin/update-site
         echo ">>>>> 2/7 Clone locally"
         mkdir "${HOME}/target_repo"
