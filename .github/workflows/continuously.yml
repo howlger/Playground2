@@ -8,55 +8,42 @@ on:
 jobs:
   build:
 
-    # POM-less Tycho fails with Maven 3.6.1 and 3.6.2:
+    # POM-less Tycho fails with Maven 3.6.1 and 3.6.2; installed Maven versions see:
     # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/software-installed-on-github-hosted-runners
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v20 > out/test.txt
+      run: mkdir out && echo test v22 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
-        echo ">>>>> 1/7 Clone locally"
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
-        echo ">>>>> 2/7 Fetch 'update-site' branch if available"
         git remote add github "https://github.com/${GITHUB_REPOSITORY}"
         if [ "`git ls-remote --heads github update-site`" ]; then git fetch github update-site; fi
-        ls -l
         if [ "`git branch -r --list github/update-site`" ]
         then
-          echo ">>>>> 3/7 Checkout remote 'update-site' branch"
           git checkout -t github/update-site
         else
-          echo ">>>>> 3/7 Create new 'update-site' branch"
           git checkout --orphan update-site
         fi
-        ls -l
-        echo ">>>>> 4/7 Get update site"
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
-        ls -l
-        echo ">>>>> 5/7 Add"
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add staging
         if [ "`git branch -r --list github/update-site`" ]
         then
-          echo ">>>>> 6/7 Update last commit (using '--amend')"
           git commit --amend -m "Update update site"
         else
-          echo ">>>>> 6/7 Create initial commit"
           git commit -m "Update update site"
         fi
-        echo ">>>>> 7/7 Push to https://github.com/${GITHUB_REPOSITORY}.git"
         git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
-        echo Done.
-        echo "See: https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging"
+        echo "Done. See: https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging"
         echo "Update site: https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/update-site/staging"
