@@ -41,7 +41,7 @@ jobs:
         echo Committing...
         #if [ `git branch -r --contains update-site` ]; then git commit --amend -m "Update update site"; else git commit -m "Update update site"; fi
         git commit -m "Update update site"
-        echo Pushing...
+        echo Pushing... to "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
         #git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         echo Done. See https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
