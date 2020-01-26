@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v2 > out/test.txt
+      run: mkdir out && echo test v3 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -32,7 +32,12 @@ jobs:
         #git checkout --orphan update-site
         #git checkout -b update-site
         #if [ `git branch -r --contains update-site` ]; then echo With update-site branch; else echo Without update-site branch; fi
-        if [ `git branch -r --contains update-site` ]; then git checkout -b update-site; else git checkout --orphan update-site; fi
+        if [ `git branch -r --contains update-site` ]
+        then
+          git checkout -b update-site
+        else
+          git checkout --orphan update-site
+        fi
         ls -la
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
