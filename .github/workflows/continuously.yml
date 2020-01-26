@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v6 > out/test.txt
+      run: mkdir out && echo test v7 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -29,7 +29,7 @@ jobs:
         #if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         #git checkout --orphan update-site
         #git checkout -b update-site
-        if [ `git branch -r --contains update-site` ]
+        if [ `git branch -r --list update-site` ]
         then
           echo ">>>>> 2/6 Create new 'update-site' branch"
           git checkout --orphan update-site
@@ -49,7 +49,7 @@ jobs:
         #if [ `git branch -r --contains update-site` ]; then git commit --amend -m "Update update site"; else git commit -m "Update update site"; fi
         #git commit -m "Update update site"
         #git commit --amend -m "Update update site"
-        if [ `git branch -r --contains update-site` ]
+        if [ `git branch -r --list update-site` ]
         then
           echo ">>>>> 5/6 Create initial commit"
           git commit -m "Update update site"
