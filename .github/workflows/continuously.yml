@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v10 > out/test.txt
+      run: mkdir out && echo test v11 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -32,7 +32,7 @@ jobs:
         echo aaa
         git branch -r --list update-site
         echo bbb
-        git branch -r --list update-site
+        git branch --list update-site
         echo ccc
         if [ "`git branch -r --list update-site`" ]
         then
