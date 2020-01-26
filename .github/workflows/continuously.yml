@@ -34,8 +34,8 @@ jobs:
         echo --b
         git branch -r --list github/update-site
         echo --o
-        if [ "`git branch -r --contains update-site`" ]; then echo with update-site; else echo without update-site; fi
-        if [ "`git ls-remote --heads github update-site`" ]
+        if [ "`git branch -r --list github/update-site`" ]; then echo with update-site; else echo without update-site; fi
+        if [ "`git branch -r --list github/update-site`" ]
         then
           echo ">>>>> 3/7 Checkout remote 'update-site' branch"
           git checkout -b update-site
@@ -52,7 +52,7 @@ jobs:
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add staging
-        if [ "`git ls-remote --heads github update-site`" ]
+        if [ "`git branch -r --list github/update-site`" ]
         then
           echo ">>>>> 6/7 Update last commit (using '--amend')"
           git commit --amend -m "Update update site"
