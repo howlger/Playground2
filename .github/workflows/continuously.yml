@@ -29,6 +29,9 @@ jobs:
         echo ">>>>> 2/7 Fetch 'update-site' branch if available"
         git remote add github "https://github.com/${GITHUB_REPOSITORY}"
         if [ "`git ls-remote --heads github update-site`" ]; then git fetch github update-site; fi
+        if [ `git branch -r --contains update-site` ]; then echo with update-site; else echo without update-site; fi
+        #git checkout --orphan update-site
+        #git checkout -b update-site
         if [ "`git ls-remote --heads github update-site`" ]
         then
           echo ">>>>> 3/7 Checkout remote 'update-site' branch"
