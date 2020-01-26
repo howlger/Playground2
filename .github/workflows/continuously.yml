@@ -24,36 +24,44 @@ jobs:
       run: |
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
-        ls -la
-        echo Cloning...
+        echo 1. Clone...
         git clone "file://${GITHUB_WORKSPACE}" . --no-checkout --no-single-branch --depth 1
-        ls -la
-        echo Create branch...
-        # if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
+        #if [ `git branch -r --contains update-site` ]; then git checkout update-site; else git checkout --orphan update-site; fi
         #git checkout --orphan update-site
         #git checkout -b update-site
         if [ `git branch -r --contains update-site` ]
         then
-          echo Start without update-site branch
+          echo 2. Create new 'update-site' branch
           git checkout --orphan update-site
           echo End without update-site branch
         else
-          echo Start with update-site branch
+          echo 2. Chechout 'update-site' branch
           git checkout -b update-site
           echo End with update-site branch
         fi
-        ls -la
+        echo 3. Copy update site
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
-        ls -la
+        echo 4. Add changes
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add staging
-        echo Committing...
         #if [ `git branch -r --contains update-site` ]; then git commit --amend -m "Update update site"; else git commit -m "Update update site"; fi
         #git commit -m "Update update site"
-        git commit --amend -m "Update update site"
-        echo Pushing... to "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        #git commit --amend -m "Update update site"
+        if [ `git branch -r --contains update-site` ]
+        then
+          echo 5. Create initial commit
+          git commit -m "Update update site"
+          echo End without update-site branch
+        else
+          echo 5. Create commit with '--amend'
+          git commit --amend -m "Update update site"
+          echo End with update-site branch
+        fi
+        echo 6. Push to "https://github.com/${GITHUB_REPOSITORY}.git"
         #git push "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
-        echo Done. See https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
+        echo Done.
+        echo See: https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
+        echo Update site: https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/update-site/staging
