@@ -27,9 +27,9 @@ jobs:
         echo zzz
         git branch --remotes --list
         echo aaa
-        git branch -r --list update.*
+        git branch -r --list origin/update-site
         echo bbb
-        git branch --list update.*
+        git branch --list origin/update-site
         echo ccc
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
