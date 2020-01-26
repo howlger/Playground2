@@ -34,7 +34,7 @@ jobs:
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add staging
-        git commit --amend -m "Update update site"
+        if [ `git branch -r --contains update-site` ]; then git commit --amend -m "Update update site"; else git commit -m "Update update site"; fi
         echo Pushing to the update site repository...
         git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:update-site
         echo Done. See https://github.com/${GITHUB_REPOSITORY}/blob/update-site/staging
