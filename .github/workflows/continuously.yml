@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v15 > out/test.txt
+      run: mkdir out && echo test v16 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
