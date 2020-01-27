@@ -35,8 +35,10 @@ jobs:
         echo "--------------------"
         if [ "`git branch -r --list github/update-site`" ]
         then
+          echo "checkout -t github/update-site"
           git checkout -t github/update-site
         else
+          echo "checkout --orphan update-site"
           git checkout --orphan update-site
         fi
         echo "--- after checkout: ---"
