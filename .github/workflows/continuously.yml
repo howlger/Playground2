@@ -19,7 +19,7 @@ jobs:
     - name: Publish update site
       env:
         SOURCE_PATH: out
-        TARGET_BRANCH: report2
+        TARGET_BRANCH: report3
         TARGET_PATH: path/to/report
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
@@ -38,7 +38,7 @@ jobs:
         fi
         rm -rf "${TARGET_PATH}"
         mkdir -p "${TARGET_PATH}"
-        cp -av "${GITHUB_WORKSPACE}/${SOURCE_PATH}" "${TARGET_PATH}/"
+        cp -av "${GITHUB_WORKSPACE}/${SOURCE_PATH}/" "${TARGET_PATH}/"
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
         git add "${TARGET_PATH}"
