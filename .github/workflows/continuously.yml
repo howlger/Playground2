@@ -37,6 +37,7 @@ jobs:
           git rm --cached -r .
         fi
         rm -rf "${TARGET_PATH}"
+        mkdir -p "${TARGET_PATH}"
         cp -av "${GITHUB_WORKSPACE}/${SOURCE_PATH}" "${TARGET_PATH}"
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --local user.name  "${GITHUB_ACTOR}"
