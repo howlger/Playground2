@@ -19,9 +19,9 @@ jobs:
     - name: Publish update site
       env:
         SOURCE_PATH: out
-        TARGET_BRANCH: report4
-        TARGET_PATH: path/to/report
-        COMMIT_MESSAGE: Update update site2
+        TARGET_BRANCH: update-site
+        TARGET_PATH: staging
+        COMMIT_MESSAGE: Update update site
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
