@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v34 > out/test.txt
+      run: mkdir out && echo test v35 > out/test.txt
     - name: Publish update site
       env:
         SOURCE_PATH: out
@@ -24,10 +24,11 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
-        git log --oneline --format=%s -n 1 HEAD
         COMMIT_MESSAGE="$(git log --oneline --format=%s -n 1 HEAD)"
         echo ">>>${COMMIT_MESSAGE}<<<"
-        git log --oneline --format=%an -n 1 HEAD
+        COMMIT_AUTHOR="$(git log --oneline --format='%an <%ae>' -n 1 HEAD)"
+        echo ">>>${COMMIT_AUTHOR}<<<"
+        #
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
