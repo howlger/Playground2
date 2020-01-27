@@ -15,13 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v32 > out/test.txt
+      run: mkdir out && echo test v33 > out/test.txt
     - name: Publish update site
       env:
         SOURCE_PATH: out
         TARGET_BRANCH: report4
         TARGET_PATH: path/to/report
-        COMMIT_MESSAGE: Update update site
+        COMMIT_MESSAGE: Update update site2
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
