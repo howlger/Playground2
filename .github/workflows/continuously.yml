@@ -15,12 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v31 > out/test.txt
+      run: mkdir out && echo test v32 > out/test.txt
     - name: Publish update site
       env:
         SOURCE_PATH: out
         TARGET_BRANCH: report4
         TARGET_PATH: path/to/report
+        COMMIT_MESSAGE: Update update site
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: success()
       run: |
@@ -44,9 +45,9 @@ jobs:
         git add "${TARGET_PATH}"
         if [ "`git branch -r --list github/${TARGET_BRANCH}`" ]
         then
-          git commit --amend -m "Update update site"
+          git commit --amend -m "${COMMIT_MESSAGE}"
         else
-          git commit -m "Update update site"
+          git commit -m "${COMMIT_MESSAGE}"
         fi
         git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${TARGET_BRANCH}
         echo "Done. See: https://github.com/${GITHUB_REPOSITORY}/blob/${TARGET_BRANCH}/${TARGET_PATH}"
