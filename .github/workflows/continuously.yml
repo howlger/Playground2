@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v25 > out/test.txt
+      run: mkdir out && echo test v26 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -25,14 +25,23 @@ jobs:
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
+        echo "--- after clone: ---"
+        ls -ls
+        echo "--------------------"
         git remote add github "https://github.com/${GITHUB_REPOSITORY}"
         if [ "`git ls-remote --heads github update-site`" ]; then git fetch --depth=1 github update-site; fi
+        echo "--- after fetch: ---"
+        ls -ls
+        echo "--------------------"
         if [ "`git branch -r --list github/update-site`" ]
         then
           git checkout -t github/update-site
         else
           git checkout --orphan update-site
         fi
+        echo "--- after checkout: ---"
+        ls -ls
+        echo "-----------------------"
         rm -rf staging
         cp -av "${GITHUB_WORKSPACE}/${UPDATE_SITE_PATH}" staging
         git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
