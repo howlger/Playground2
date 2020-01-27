@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v35 > out/test.txt
+      run: mkdir out && echo test v36 > out/test.txt
     - name: Publish update site
       env:
         SOURCE_PATH: out
@@ -25,10 +25,7 @@ jobs:
       if: success()
       run: |
         COMMIT_MESSAGE="$(git log --oneline --format=%s -n 1 HEAD)"
-        echo ">>>${COMMIT_MESSAGE}<<<"
         COMMIT_AUTHOR="$(git log --oneline --format='%an <%ae>' -n 1 HEAD)"
-        echo ">>>${COMMIT_AUTHOR}<<<"
-        #
         mkdir "${HOME}/target_repo"
         cd "${HOME}/target_repo"
         git clone --no-checkout --depth 1 "file://${GITHUB_WORKSPACE}" .
@@ -49,9 +46,9 @@ jobs:
         git add "${TARGET_PATH}"
         if [ "`git branch -r --list github/${TARGET_BRANCH}`" ]
         then
-          git commit --amend -m "${COMMIT_MESSAGE}"
+          git commit --amend -m "${COMMIT_MESSAGE}" --author="${COMMIT_AUTHOR}"
         else
-          git commit -m "${COMMIT_MESSAGE}"
+          git commit -m "${COMMIT_MESSAGE}" --author="${COMMIT_AUTHOR}"
         fi
         git push --force "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${TARGET_BRANCH}
         echo "Done. See: https://github.com/${GITHUB_REPOSITORY}/blob/${TARGET_BRANCH}/${TARGET_PATH}"
