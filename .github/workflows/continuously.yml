@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create stuff...
-      run: mkdir out && echo test v26 > out/test.txt
+      run: mkdir out && echo test v27 > out/test.txt
     - name: Publish update site
       env:
         UPDATE_SITE_PATH: out
@@ -35,11 +35,10 @@ jobs:
         echo "--------------------"
         if [ "`git branch -r --list github/update-site`" ]
         then
-          echo "checkout -t github/update-site"
           git checkout -t github/update-site
         else
-          echo "checkout --orphan update-site"
           git checkout --orphan update-site
+          git rm --cached -r .
         fi
         echo "--- after checkout: ---"
         ls -ls
